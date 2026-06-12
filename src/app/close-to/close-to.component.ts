@@ -59,4 +59,6 @@ export class CloseToComponent {
     this.bruteForceResult = undefined;
   }
 
+
+
 }

@@ -75,8 +75,13 @@
     <h4>Highest result is: </h4>
     <h4>{{bruteForceResult.highestValue}}</h4>
 </div>
-<div class="flexBox">
-    <h4>By calculating: </h4>
-    <h4>{{bruteForceResult.way}}</h4>
+@if(bruteForceResult.wayStepByStep && bruteForceResult.wayStepByStep.length){
+<div class="stepsContainer">
+    @for(step of bruteForceResult.wayStepByStep; track step){
+    <h5 class="step">
+        {{step}}
+    </h5>
+    }
 </div>
+}
 }

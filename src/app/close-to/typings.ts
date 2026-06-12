@@ -110,11 +110,60 @@ function generateCombinationsWithRepetition(
     return result;
 }
 
+function splitIntoSteps(resultWithBraces: string): string[] {
+    if (!resultWithBraces) return [];
+    
+    // Extract numbers and operators from the equation string
+    // e.g., "(((55+4)*3)*1)-4" -> numbers: [55, 4, 3, 1, 4], operators: ['+', '*', '*', '-']
+    const numberMatches = resultWithBraces.match(/\d+/g) || [];
+    const operatorMatches = resultWithBraces.match(/[+\-*/]/g) || [];
+    
+    const numbers = numberMatches.map(Number);
+    const operators = operatorMatches;
+    
+    if (numbers.length === 0) return [];
+    if (numbers.length === 1) return [`${numbers[0]}`];
+    
+    const steps: string[] = [];
+    let result = numbers[0];
+    
+    // Evaluate left-to-right and track each step
+    for (let i = 0; i < operators.length; i++) {
+        const op = operators[i];
+        const nextNum = numbers[i + 1];
+        let stepResult: number;
+        
+        switch (op) {
+            case '+':
+                stepResult = result + nextNum;
+                break;
+            case '-':
+                stepResult = result - nextNum;
+                break;
+            case '*':
+                stepResult = result * nextNum;
+                break;
+            case '/':
+                stepResult = nextNum === 0 ? NaN : result / nextNum;
+                break;
+            default:
+                stepResult = result;
+        }
+        
+        steps.push(`${result} ${op} ${nextNum} = ${stepResult}`);
+        result = stepResult;
+    }
+    
+    return steps;
+  }
+
 
 export class BruteForceResult {
     highestValue: number = 0;
     way: string = '';
+    wayStepByStep: string[] = [];
     calculations: number = 0;
+
 
     constructor(target: number, inputs: Die[]) {
         if (!target) return;
@@ -136,6 +185,7 @@ export class BruteForceResult {
                 if (currentValue >= this.highestValue && currentValue <= target) {
                     this.highestValue = currentValue;
                     this.way = buildEquationString(inputDigitSeed, operandSeed);
+                    this.wayStepByStep = splitIntoSteps(this.way);
                 }
 
                 if (currentValue === target)
