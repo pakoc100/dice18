@@ -3,6 +3,7 @@ import { BruteForceResult, dice, Die, Digit, digits } from './typings';
 
 @Component({
   selector: 'app-close-to',
+  standalone: true,
   templateUrl: './close-to.component.html',
   styleUrls: ['./close-to.component.scss']
 })
