@@ -59,6 +59,37 @@ export class CloseToComponent {
     this.bruteForceResult = undefined;
   }
 
+  getColoredSteps(steps: string[]): Array<{ text: string; color: string | null }[]> {
+    const resultColorMap: { [key: string]: string } = {};
+    let colorIndex = 0;
 
+    return steps.map((step, idx) => {
+      // Parse step format: "55 + 4 = 59"
+      const match = step.match(/(.+?)\s*([+\-*/])\s*(.+?)\s*=\s*(.+)/);
+      if (!match) return [{ text: step, color: null }];
 
+      const operand1 = match[1].trim();
+      const operator = match[2].trim();
+      const operand2 = match[3].trim();
+      const result = match[4].trim();
+
+      // Determine color for operand1 (if it was a previous result)
+      const operand1Color = resultColorMap[operand1] ?? null;
+
+      // Assign new color to result
+      if (!resultColorMap[result]) {
+        resultColorMap[result] = 'color-' + (colorIndex % 5);
+        colorIndex++;
+      }
+      const resultColor = resultColorMap[result];
+
+      return [
+        { text: operand1, color: operand1Color },
+        { text: ` ${operator} `, color: null },
+        { text: operand2, color: null },
+        { text: ' = ', color: null },
+        { text: result, color: resultColor }
+      ];
+    });
+  }
 }

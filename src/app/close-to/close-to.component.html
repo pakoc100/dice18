@@ -77,10 +77,12 @@
 </div>
 @if(bruteForceResult.wayStepByStep && bruteForceResult.wayStepByStep.length){
 <div class="stepsContainer">
-    @for(step of bruteForceResult.wayStepByStep; track step){
-    <h5 class="step">
-        {{step}}
-    </h5>
+    @for(stepParts of getColoredSteps(bruteForceResult.wayStepByStep); track $index){
+    <div class="step">
+        @for(part of stepParts; track part.text){
+        <span [class]="part.color ? part.color : ''">{{part.text}}</span>
+        }
+    </div>
     }
 </div>
 }

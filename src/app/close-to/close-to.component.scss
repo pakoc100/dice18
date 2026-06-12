@@ -68,6 +68,66 @@ h5 {
 
 .stepsContainer {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(auto-fit, minmax(50px, auto));
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.step {
+    padding: 3px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    margin: 0;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+span.color-0 {
+    background-color: #e8f4f8;
+    color: #01579b;
+    padding: 2px 4px;
+    border-radius: 2px;
+    font-weight: bold;
+}
+
+span.color-1 {
+    background-color: #f0f4e6;
+    color: #33691e;
+    padding: 2px 4px;
+    border-radius: 2px;
+    font-weight: bold;
+}
+
+span.color-2 {
+    background-color: #fef3e2;
+    color: #e65100;
+    padding: 2px 4px;
+    border-radius: 2px;
+    font-weight: bold;
+}
+
+span.color-3 {
+    background-color: #f3e5f5;
+    color: #4a148c;
+    padding: 2px 4px;
+    border-radius: 2px;
+    font-weight: bold;
+}
+
+span.color-4 {
+    background-color: #ffebee;
+    color: #b71c1c;
+    padding: 2px 4px;
+    border-radius: 2px;
+    font-weight: bold;
+}
+
+span {
+    font-size: 20px;
 }
