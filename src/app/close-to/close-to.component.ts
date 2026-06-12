@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { BruteForceResult, dice, Die, Digit, digits } from './typings';
 
 @Component({
   selector: 'app-close-to',
   standalone: true,
   templateUrl: './close-to.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./close-to.component.scss']
 })
 export class CloseToComponent {

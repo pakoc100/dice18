@@ -1,4 +1,4 @@
-/// <reference types="jasmine" />
+import { describe, it, expect } from 'vitest';
 import { BruteForceResult, Die } from './typings';
 
 describe('BruteForceResult', () => {
