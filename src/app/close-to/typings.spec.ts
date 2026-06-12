@@ -44,12 +44,12 @@ describe('BruteForceResult', () => {
     expect(result.highestValue).toBe(24);
   });
 
-  it('should handle division resulting in fractional value', () => {
-    const inputs: Die[] = [5, 2];
-    const result = new BruteForceResult(2.5, inputs);
+  it('should handle division resulting in integer value', () => {
+    const inputs: Die[] = [6, 2];
+    const result = new BruteForceResult(3, inputs);
     
-    // Left-to-right: 5/2 = 2.5
-    expect(result.highestValue).toBe(2.5);
+    // Left-to-right: 6/2 = 3
+    expect(result.highestValue).toBe(3);
   });
 
   it('should handle subtraction resulting in negative values', () => {

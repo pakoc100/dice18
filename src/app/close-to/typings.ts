@@ -130,8 +130,8 @@ export class BruteForceResult {
                 const currentValue = evaluateLeftToRight(inputDigitSeed, operandSeed);
                 this.calculations++;
                 
-                // Skip invalid results (NaN from division by zero)
-                if (!isFinite(currentValue)) continue;
+                // Skip invalid results (NaN from division by zero) and non-integers
+                if (!isFinite(currentValue) || !Number.isInteger(currentValue)) continue;
                 
                 if (currentValue >= this.highestValue && currentValue <= target) {
                     this.highestValue = currentValue;
