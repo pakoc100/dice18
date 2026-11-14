@@ -53,12 +53,14 @@ describe('BruteForceResult', () => {
   });
 
   it('should handle subtraction resulting in negative values', () => {
-    const inputs: Die[] = [1, 5];
+    const inputs: Die[] = [3, 5];
     const target = -2;
     const result = new BruteForceResult(target, inputs);
-    
-    // Should have done calculations even if no valid result found
-    expect(result.calculations).toBeGreaterThanOrEqual(0);
+
+    expect(result.highestValue).toBe(-2);
+    expect(result.way).toContain('3');
+    expect(result.way).toContain('5');
+    expect(result.calculations).toBeGreaterThan(0);
   });
 
   it('should skip division by zero gracefully', () => {

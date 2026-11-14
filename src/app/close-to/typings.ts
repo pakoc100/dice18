@@ -174,23 +174,37 @@ export class BruteForceResult {
         const operandsLength = inputLength - 1;
         const allOperandsSeeds = generateCombinationsWithRepetition(operators?.map(operator => operator.toString()), operandsLength);
 
+        let bestValue = Number.NEGATIVE_INFINITY;
+        let bestWay = '';
+        let bestSteps: string[] = [];
+
         for (const operandSeed of allOperandsSeeds) {
             for (const inputDigitSeed of allInputsWithoutDuplicates) {
                 const currentValue = evaluateLeftToRight(inputDigitSeed, operandSeed);
                 this.calculations++;
-                
+
                 // Skip invalid results (NaN from division by zero) and non-integers
                 if (!isFinite(currentValue) || !Number.isInteger(currentValue)) continue;
-                
-                if (currentValue >= this.highestValue && currentValue <= target) {
+
+                if (currentValue <= target && currentValue > bestValue) {
+                    bestValue = currentValue;
+                    bestWay = buildEquationString(inputDigitSeed, operandSeed);
+                    bestSteps = splitIntoSteps(bestWay);
+                }
+
+                if (currentValue === target) {
                     this.highestValue = currentValue;
                     this.way = buildEquationString(inputDigitSeed, operandSeed);
                     this.wayStepByStep = splitIntoSteps(this.way);
-                }
-
-                if (currentValue === target)
                     return;
+                }
             }
+        }
+
+        if (Number.isFinite(bestValue)) {
+            this.highestValue = bestValue;
+            this.way = bestWay;
+            this.wayStepByStep = bestSteps;
         }
     }
 }
