@@ -1,4 +1,4 @@
-import { afterNextRender, ChangeDetectionStrategy, Component, ElementRef, inject, Injector, ViewChild } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, DestroyRef, ElementRef, inject, Injector, ViewChild } from '@angular/core';
 import { BruteForceResult, dieFacePips, Die, Digit } from './typings';
 import { DiceInputComponent } from './dice-input.component';
 import { TargetInputComponent } from './target-input.component';
@@ -12,12 +12,16 @@ import { TargetInputComponent } from './target-input.component';
 })
 export class CloseToComponent {
   private readonly injector = inject(Injector);
+  private readonly destroyRef = inject(DestroyRef);
   readonly pipPositions = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   readonly dieFacePips = dieFacePips;
+  private calculationWorker?: Worker;
 
   @ViewChild('resultCard') private resultCard?: ElementRef<HTMLElement>;
 
   targetResult: string = '';
+  isCalculating = false;
+  calculationError = '';
 
   currentInputs: Die[] = [];
   bruteForceResult?: BruteForceResult;
@@ -35,7 +39,6 @@ export class CloseToComponent {
   }
 
   presentCurrentInputs(currentInputs: Die[]): string {
-    console.log('E')
     return currentInputs?.join(', ')
   }
 
@@ -54,16 +57,53 @@ export class CloseToComponent {
 
   calculateMaximum(targetResult: string, currentInputs: Die[]): void {
     const target = parseInt(targetResult, 10);
-    this.bruteForceResult = new BruteForceResult(target, currentInputs);
-    afterNextRender(() => {
-      this.resultCard?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, { injector: this.injector });
+    this.isCalculating = true;
+    this.calculationError = '';
+    this.bruteForceResult = undefined;
+
+    try {
+      if (!this.calculationWorker) {
+        this.calculationWorker = new Worker(new URL('./calculation.worker', import.meta.url), { type: 'module' });
+        this.destroyRef.onDestroy(() => this.calculationWorker?.terminate());
+      }
+
+      this.calculationWorker.onmessage = ({ data }: MessageEvent<BruteForceResult>) => {
+        this.bruteForceResult = data;
+        this.isCalculating = false;
+        afterNextRender(() => {
+          this.resultCard?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, { injector: this.injector });
+      };
+      this.calculationWorker.onerror = (event) => {
+        console.error('Calculation worker failed:', event.message);
+        this.failCalculation();
+      };
+      this.calculationWorker.onmessageerror = () => {
+        console.error('Calculation worker returned an unreadable result.');
+        this.failCalculation();
+      };
+      this.calculationWorker.postMessage({ target, inputs: [...currentInputs] });
+    } catch (error) {
+      console.error('Could not start the calculation worker:', error);
+      this.failCalculation();
+    }
   }
 
   clearEverything() {
     this.targetResult = '';
     this.currentInputs = [];
     this.bruteForceResult = undefined;
+    this.isCalculating = false;
+    this.calculationError = '';
+    this.calculationWorker?.terminate();
+    this.calculationWorker = undefined;
+  }
+
+  private failCalculation(): void {
+    this.calculationError = 'Die Berechnung ist fehlgeschlagen. Bitte versuche es erneut.';
+    this.isCalculating = false;
+    this.calculationWorker?.terminate();
+    this.calculationWorker = undefined;
   }
 
   getColoredSteps(steps: string[], usedDice: Die[]): Array<Array<{ text: string; color: string | null; die?: Die }>> {

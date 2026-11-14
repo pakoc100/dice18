@@ -18,6 +18,7 @@
         <app-target-input
             [targetResult]="targetResult"
             [canCalculate]="currentInputs.length > 0 && targetResult.length > 0"
+            [isCalculating]="isCalculating"
             (addDigit)="addToTarget($event, targetResult)"
             (removeLast)="removeTarget()"
             (clearAll)="removeWholeTarget()"
@@ -25,6 +26,13 @@
             (reset)="clearEverything()">
         </app-target-input>
     </div>
+
+    @if(isCalculating){
+    <p class="calculation-status" role="status">Berechnung läuft im Hintergrund …</p>
+    }
+    @if(calculationError){
+    <p class="calculation-error" role="alert">{{calculationError}}</p>
+    }
 
     @if(bruteForceResult){
     <section #resultCard class="result-card" aria-labelledby="result-heading" aria-live="polite">

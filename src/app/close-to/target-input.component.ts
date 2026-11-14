@@ -11,6 +11,7 @@ import { Digit } from './typings';
 export class TargetInputComponent {
   @Input() targetResult = '';
   @Input() canCalculate = false;
+  @Input() isCalculating = false;
   @Output() addDigit = new EventEmitter<Digit>();
   @Output() removeLast = new EventEmitter<void>();
   @Output() clearAll = new EventEmitter<void>();

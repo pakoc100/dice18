@@ -1,8 +1,8 @@
 <section class="input-card" aria-labelledby="target-heading">
     @if(canCalculate){
     <div class="button-row calculate-row">
-        <button type="button" class="calculate-button" (click)="calculate.emit()">
-            Beste Punktzahl finden <span aria-hidden="true">→</span>
+        <button type="button" class="calculate-button" [disabled]="isCalculating" (click)="calculate.emit()">
+            {{isCalculating ? 'Berechnung läuft …' : 'Beste Punktzahl finden'}} <span aria-hidden="true">→</span>
         </button>
         <button type="button" class="reset-button" (click)="reset.emit()">Neu starten</button>
     </div>
