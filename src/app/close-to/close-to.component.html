@@ -38,10 +38,18 @@
         @if(bruteForceResult.wayStepByStep && bruteForceResult.wayStepByStep.length){
         <div class="steps-heading">SO SPIELST DU ES</div>
         <div class="steps-container">
-            @for(stepParts of getColoredSteps(bruteForceResult.wayStepByStep); track $index){
+            @for(stepParts of getColoredSteps(bruteForceResult.wayStepByStep, bruteForceResult.usedDice); track $index){
             <div class="step">
                 @for(part of stepParts; track part.text){
+                @if(part.die){
+                <span class="step-die" [attr.aria-label]="'Würfel ' + part.die">
+                    @for(position of pipPositions; track position){
+                    <span class="step-die-pip" [class.visible]="dieFacePips[part.die].includes(position)"></span>
+                    }
+                </span>
+                } @else {
                 <span [class]="part.color ? part.color : ''">{{part.text}}</span>
+                }
                 }
             </div>
             }

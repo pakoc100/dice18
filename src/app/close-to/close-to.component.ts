@@ -1,5 +1,5 @@
 import { afterNextRender, ChangeDetectionStrategy, Component, ElementRef, inject, Injector, ViewChild } from '@angular/core';
-import { BruteForceResult, Die, Digit } from './typings';
+import { BruteForceResult, dieFacePips, Die, Digit } from './typings';
 import { DiceInputComponent } from './dice-input.component';
 import { TargetInputComponent } from './target-input.component';
 
@@ -12,6 +12,8 @@ import { TargetInputComponent } from './target-input.component';
 })
 export class CloseToComponent {
   private readonly injector = inject(Injector);
+  readonly pipPositions = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  readonly dieFacePips = dieFacePips;
 
   @ViewChild('resultCard') private resultCard?: ElementRef<HTMLElement>;
 
@@ -19,7 +21,6 @@ export class CloseToComponent {
 
   currentInputs: Die[] = [];
   bruteForceResult?: BruteForceResult;
-
 
   addInput(addNumber: Die, currentInputs: Die[]): void {
     currentInputs.push(addNumber);
@@ -65,14 +66,16 @@ export class CloseToComponent {
     this.bruteForceResult = undefined;
   }
 
-  getColoredSteps(steps: string[]): Array<{ text: string; color: string | null }[]> {
+  getColoredSteps(steps: string[], usedDice: Die[]): Array<Array<{ text: string; color: string | null; die?: Die }>> {
     const resultColorMap: { [key: string]: string } = {};
     let colorIndex = 0;
 
     return steps.map((step, idx) => {
       // Parse step format: "55 + 4 = 59"
       const match = step.match(/(.+?)\s*([+\-*/])\s*(.+?)\s*=\s*(.+)/);
-      if (!match) return [{ text: step, color: null }];
+      if (!match) {
+        return [{ text: step, color: null, die: usedDice[idx] }];
+      }
 
       const operand1 = match[1].trim();
       const operator = match[2].trim();
@@ -90,9 +93,9 @@ export class CloseToComponent {
       const resultColor = resultColorMap[result];
 
       return [
-        { text: operand1, color: operand1Color },
+        { text: operand1, color: operand1Color, die: idx === 0 ? usedDice[0] : undefined },
         { text: ` ${operator} `, color: null },
-        { text: operand2, color: null },
+        { text: operand2, color: null, die: usedDice[idx + 1] },
         { text: ' = ', color: null },
         { text: result, color: resultColor }
       ];

@@ -34,6 +34,7 @@ describe('BruteForceResult', () => {
     const result = new BruteForceResult(7, inputs);
     
     expect(result.highestValue).toBe(7);
+    expect(result.usedDice).toEqual([3, 4]);
     expect(result.calculations).toBeGreaterThan(0);
   });
 

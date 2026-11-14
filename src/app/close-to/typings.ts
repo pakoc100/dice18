@@ -1,6 +1,15 @@
 export const dice = [1, 2, 3, 4, 5, 6] as const;
 export type Die = typeof dice[number];
 
+export const dieFacePips: Record<Die, readonly number[]> = {
+    1: [5],
+    2: [1, 9],
+    3: [1, 5, 9],
+    4: [1, 3, 7, 9],
+    5: [1, 3, 5, 7, 9],
+    6: [1, 3, 4, 6, 7, 9],
+};
+
 export const digits = [0, ...dice, 7, 8, 9] as const;
 export type Digit = typeof digits[number];
 
@@ -77,7 +86,7 @@ export function permutations<T>(arr: T[]): T[][] {
     return result;
 }
 
-export function filterDuplicates(arr: number[][]): number[][] {
+export function filterDuplicates<T>(arr: T[][]): T[][] {
     const seen = new Set<string>();
     return arr.filter((subArr) => {
         const key = subArr.join(',');
@@ -162,13 +171,14 @@ export class BruteForceResult {
     highestValue: number = 0;
     way: string = '';
     wayStepByStep: string[] = [];
+    usedDice: Die[] = [];
     calculations: number = 0;
 
 
     constructor(target: number, inputs: Die[]) {
         if (!target) return;
 
-        const allInputs: number[][] = permutations(inputs);
+        const allInputs: Die[][] = permutations(inputs);
         const allInputsWithoutDuplicates = filterDuplicates(allInputs);
         const inputLength = inputs?.length;
         const operandsLength = inputLength - 1;
@@ -177,6 +187,7 @@ export class BruteForceResult {
         let bestValue = Number.NEGATIVE_INFINITY;
         let bestWay = '';
         let bestSteps: string[] = [];
+        let bestDice: Die[] = [];
 
         for (const operandSeed of allOperandsSeeds) {
             for (const inputDigitSeed of allInputsWithoutDuplicates) {
@@ -190,12 +201,14 @@ export class BruteForceResult {
                     bestValue = currentValue;
                     bestWay = buildEquationString(inputDigitSeed, operandSeed);
                     bestSteps = splitIntoSteps(bestWay);
+                    bestDice = inputDigitSeed;
                 }
 
                 if (currentValue === target) {
                     this.highestValue = currentValue;
                     this.way = buildEquationString(inputDigitSeed, operandSeed);
                     this.wayStepByStep = splitIntoSteps(this.way);
+                    this.usedDice = inputDigitSeed;
                     return;
                 }
             }
@@ -205,6 +218,7 @@ export class BruteForceResult {
             this.highestValue = bestValue;
             this.way = bestWay;
             this.wayStepByStep = bestSteps;
+            this.usedDice = bestDice;
         }
     }
 }

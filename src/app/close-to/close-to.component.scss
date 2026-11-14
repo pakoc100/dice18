@@ -161,6 +161,30 @@ h1 {
     line-height: 1;
 }
 
+.step-die {
+    display: grid;
+    flex: 0 0 30px;
+    width: 30px;
+    height: 30px;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    background: #fff;
+}
+
+.step-die-pip {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--ink);
+    opacity: 0;
+}
+
+.step-die-pip.visible {
+    opacity: 1;
+}
+
 .steps-heading {
     margin: 22px 0 10px;
 }
