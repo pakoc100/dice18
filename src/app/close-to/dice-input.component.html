@@ -1,0 +1,33 @@
+<section class="input-card" aria-labelledby="dice-heading">
+    <div class="section-heading">
+        <span class="step-number">01</span>
+        <div>
+            <h2 id="dice-heading">Deine Würfel</h2>
+            <p>Tippe auf jeden Würfel, den du gewürfelt hast</p>
+        </div>
+    </div>
+
+    <div class="keypad dice-keypad">
+        @for(die of dice; track die){
+        <button type="button" class="die-button" [attr.aria-label]="'Die showing ' + die"
+            (click)="addDie.emit(die)">
+            <span class="die-face" aria-hidden="true">
+                @for(position of pipPositions; track position){
+                <span class="die-pip" [class.visible]="facePips[die].includes(position)"></span>
+                }
+            </span>
+        </button>
+        }
+    </div>
+
+    @if(currentInputs.length){
+    <div class="current-value">
+        <span class="value-label">AUSGEWÄHLT</span>
+        <strong>{{presentCurrentInputs()}}</strong>
+    </div>
+    <div class="button-row compact-actions">
+        <button type="button" class="quiet-button" (click)="removeLast.emit()">Letzte löschen</button>
+        <button type="button" class="quiet-button" (click)="clearAll.emit()">Würfel löschen</button>
+    </div>
+    }
+</section>

@@ -1,0 +1,26 @@
+<section class="input-card" aria-labelledby="target-heading">
+    <div class="section-heading">
+        <span class="step-number">02</span>
+        <div>
+            <h2 id="target-heading">Dein Ziel</h2>
+            <p>Gib die Zahl ein, die du nahe erreichen willst</p>
+        </div>
+    </div>
+
+    <div class="keypad target-keypad">
+        @for(digit of digits; track digit){
+        <button type="button" class="die-button" (click)="addDigit.emit(digit)">{{digit}}</button>
+        }
+    </div>
+
+    @if(targetResult.length){
+    <div class="current-value">
+        <span class="value-label">ZIEL</span>
+        <strong>{{targetResult}}</strong>
+    </div>
+    <div class="button-row compact-actions">
+        <button type="button" class="quiet-button" (click)="removeLast.emit()">Letzte löschen</button>
+        <button type="button" class="quiet-button" (click)="clearAll.emit()">Ziel löschen</button>
+    </div>
+    }
+</section>

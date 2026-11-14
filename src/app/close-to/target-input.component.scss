@@ -1,0 +1,149 @@
+:host {
+    display: block;
+}
+
+.input-card {
+    padding: 22px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgb(23 36 58 / 4%);
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.section-heading > div {
+    padding-left: 4px;
+}
+
+.step-number {
+    display: grid;
+    flex: 0 0 34px;
+    height: 34px;
+    place-items: center;
+    border-radius: 11px;
+    background: #fff0e8;
+    color: var(--accent-dark);
+    font-size: 11px;
+    font-weight: 900;
+}
+
+.section-heading h2 {
+    margin: 0 0 3px;
+    color: var(--ink);
+    font-size: 17px;
+    letter-spacing: -.3px;
+}
+
+.section-heading p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.keypad {
+    display: grid;
+    gap: 9px;
+    margin: 0 auto;
+}
+
+.target-keypad {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.die-button {
+    min-width: 0;
+    height: 48px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: #f8f9fb;
+    color: var(--ink);
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: 800;
+    transition: border-color .15s ease, background .15s ease, transform .15s ease;
+}
+
+.die-button:hover {
+    transform: translateY(-2px);
+    border-color: #ffb48e;
+    background: #fff5ef;
+}
+
+.die-button:active {
+    transform: translateY(0);
+}
+
+.current-value {
+    display: flex;
+    min-height: 42px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 16px;
+    padding: 9px 12px;
+    border-radius: 11px;
+    background: #f6f7f9;
+}
+
+.current-value strong {
+    overflow-wrap: anywhere;
+    color: var(--ink);
+    font-size: 14px;
+    text-align: right;
+}
+
+.value-label {
+    flex-shrink: 0;
+    margin: 0;
+    color: var(--muted);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+}
+
+.button-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.compact-actions {
+    margin-top: 10px;
+}
+
+.quiet-button {
+    padding: 5px 0;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.quiet-button:hover {
+    color: var(--accent-dark);
+}
+
+@media (max-width: 620px) {
+    .input-card {
+        padding: 18px;
+    }
+}
+
+@media (max-width: 360px) {
+    .target-keypad {
+        gap: 6px;
+    }
+
+    .die-button {
+        height: 44px;
+    }
+}
