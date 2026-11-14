@@ -9,22 +9,23 @@
 
     <div class="keypad dice-keypad">
         @for(die of dice; track die){
-        <button type="button" class="die-button" [attr.aria-label]="'Die showing ' + die"
+        @let selectedCount = countForDie(die);
+        <button type="button" class="die-button"
+            [attr.aria-label]="'Die showing ' + die + (selectedCount ? ', selected ' + selectedCount + ' times' : '')"
             (click)="addDie.emit(die)">
             <span class="die-face" aria-hidden="true">
                 @for(position of pipPositions; track position){
                 <span class="die-pip" [class.visible]="facePips[die].includes(position)"></span>
                 }
             </span>
+            @if(selectedCount > 0){
+            <span class="die-count" aria-hidden="true">(x{{selectedCount}})</span>
+            }
         </button>
         }
     </div>
 
     @if(currentInputs.length){
-    <div class="current-value">
-        <span class="value-label">AUSGEWÄHLT</span>
-        <strong>{{presentCurrentInputs()}}</strong>
-    </div>
     <div class="button-row compact-actions">
         <button type="button" class="quiet-button" (click)="removeLast.emit()">Letzte löschen</button>
         <button type="button" class="quiet-button" (click)="clearAll.emit()">Würfel löschen</button>

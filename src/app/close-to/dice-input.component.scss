@@ -70,6 +70,7 @@
 }
 
 .dice-keypad .die-button {
+    position: relative;
     display: grid;
     width: 64px;
     height: 64px;
@@ -77,6 +78,20 @@
     padding: 0;
     border-radius: 14px;
     background: #fff;
+}
+
+.die-count {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    padding: 2px 5px;
+    border: 1px solid #b7dfc0;
+    border-radius: 999px;
+    background: #e9f7ec;
+    color: #218838;
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 1.2;
 }
 
 .die-face {
@@ -107,25 +122,6 @@
 
 .die-button:active {
     transform: translateY(0);
-}
-
-.current-value {
-    display: flex;
-    min-height: 42px;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    margin-top: 16px;
-    padding: 9px 12px;
-    border-radius: 11px;
-    background: #f6f7f9;
-}
-
-.current-value strong {
-    overflow-wrap: anywhere;
-    color: var(--ink);
-    font-size: 14px;
-    text-align: right;
 }
 
 .value-label {

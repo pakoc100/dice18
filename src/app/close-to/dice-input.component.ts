@@ -25,7 +25,7 @@ export class DiceInputComponent {
     6: [1, 3, 4, 6, 7, 9],
   };
 
-  presentCurrentInputs(): string {
-    return this.currentInputs.join(', ');
+  countForDie(die: Die): number {
+    return this.currentInputs.filter(input => input === die).length;
   }
 }
