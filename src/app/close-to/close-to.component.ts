@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, ElementRef, inject, Injector, ViewChild } from '@angular/core';
 import { BruteForceResult, dice, Die, Digit, digits } from './typings';
 
 @Component({
@@ -8,6 +8,10 @@ import { BruteForceResult, dice, Die, Digit, digits } from './typings';
   changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class CloseToComponent {
+  private readonly injector = inject(Injector);
+
+  @ViewChild('resultCard') private resultCard?: ElementRef<HTMLElement>;
+
   dice = dice;
   digits = digits;
 
@@ -50,6 +54,9 @@ export class CloseToComponent {
   calculateMaximum(targetResult: string, currentInputs: Die[]): void {
     const target = parseInt(targetResult, 10);
     this.bruteForceResult = new BruteForceResult(target, currentInputs);
+    afterNextRender(() => {
+      this.resultCard?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, { injector: this.injector });
   }
 
   clearEverything() {
