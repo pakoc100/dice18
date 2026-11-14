@@ -20,11 +20,14 @@
 
 @media (max-width: 620px) {
     .frame {
-        padding: 14px;
-        place-items: start center;
+        padding: 0;
+        place-items: start stretch;
     }
 
     .content {
-        border-radius: 20px;
+        min-height: 100vh;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
     }
 }

@@ -2,10 +2,6 @@ app-close-to {
     display: block;
 }
 
-.calculator {
-    padding: 34px;
-}
-
 .hero {
     display: flex;
     align-items: center;
@@ -306,10 +302,6 @@ h1 {
 .step .color-4 { color: #c04c4c; }
 
 @media (max-width: 620px) {
-    .calculator {
-        padding: 24px 18px;
-    }
-
     .hero {
         align-items: flex-start;
         gap: 13px;
@@ -338,10 +330,6 @@ h1 {
 }
 
 @media (max-width: 360px) {
-    .calculator {
-        padding: 20px 14px;
-    }
-
     .target-keypad {
         gap: 6px;
     }
