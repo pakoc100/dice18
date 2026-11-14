@@ -192,14 +192,17 @@ h1 {
 }
 
 .step span[class^='color-'] {
-    font-weight: 800;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-weight: 900;
+    box-shadow: inset 0 0 0 1px currentColor;
 }
 
-.step .color-0 { color: #176a8a; }
-.step .color-1 { color: #56802b; }
-.step .color-2 { color: #c36620; }
-.step .color-3 { color: #7852a5; }
-.step .color-4 { color: #c04c4c; }
+.step .color-0 { color: #176a8a; background: #e6f4f8; }
+.step .color-1 { color: #456b20; background: #eef5e5; }
+.step .color-2 { color: #a34a10; background: #fff0e3; }
+.step .color-3 { color: #67408f; background: #f2eafb; }
+.step .color-4 { color: #a63232; background: #ffebeb; }
 
 @media (max-width: 620px) {
     .hero {
