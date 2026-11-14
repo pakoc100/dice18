@@ -2,9 +2,9 @@
     <header class="hero">
         <div class="brand-mark" aria-hidden="true">18</div>
         <div>
-            <p class="eyebrow">THE PARTY GAME SIDEKICK</p>
-            <h1>Drunk dice calculator</h1>
-            <p class="hero-copy">Pick your dice, set a target, and find the best way to get there.</p>
+            <p class="eyebrow">Party Spiel</p>
+            <h1>BIS - Zu</h1>
+            <p class="hero-copy">Wähle deine Würfel, stelle ein Ziel ein und finde den besten Weg, dorthin zu gelangen.</p>
         </div>
     </header>
 
@@ -13,8 +13,8 @@
             <div class="section-heading">
                 <span class="step-number">01</span>
                 <div>
-                    <h2 id="dice-heading">Your dice</h2>
-                    <p>Tap each die you rolled</p>
+                    <h2 id="dice-heading">Deine Würfel</h2>
+                    <p>Tippe auf jeden Würfel, den du gewürfelt hast</p>
                 </div>
             </div>
 
@@ -33,12 +33,12 @@
 
             @if(currentInputs.length){
             <div class="current-value">
-                <span class="value-label">SELECTED</span>
+                <span class="value-label">AUSGEWÄHLT</span>
                 <strong>{{presentCurrentInputs(currentInputs)}}</strong>
             </div>
             <div class="button-row compact-actions">
-                <button type="button" class="quiet-button" (click)="removeInput()">Undo last</button>
-                <button type="button" class="quiet-button" (click)="removeAllInput()">Clear dice</button>
+                <button type="button" class="quiet-button" (click)="removeInput()">Letzte löschen</button>
+                <button type="button" class="quiet-button" (click)="removeAllInput()">Würfel löschen</button>
             </div>
             }
         </section>
@@ -47,8 +47,8 @@
             <div class="section-heading">
                 <span class="step-number">02</span>
                 <div>
-                    <h2 id="target-heading">Your target</h2>
-                    <p>Enter the number to get close to</p>
+                    <h2 id="target-heading">Dein Ziel</h2>
+                    <p>Gib die Zahl ein, die du nahe erreichen willst</p>
                 </div>
             </div>
 
@@ -60,12 +60,12 @@
 
             @if(targetResult.length){
             <div class="current-value">
-                <span class="value-label">TARGET</span>
+                <span class="value-label">ZIEL</span>
                 <strong>{{targetResult}}</strong>
             </div>
             <div class="button-row compact-actions">
-                <button type="button" class="quiet-button" (click)="removeTarget()">Undo last</button>
-                <button type="button" class="quiet-button" (click)="removeWholeTarget()">Clear target</button>
+                <button type="button" class="quiet-button" (click)="removeTarget()">Letzte löschen</button>
+                <button type="button" class="quiet-button" (click)="removeWholeTarget()">Ziel löschen</button>
             </div>
             }
         </section>
@@ -74,9 +74,9 @@
     @if(currentInputs.length && targetResult.length){
     <div class="button-row calculate-row">
         <button type="button" class="calculate-button" (click)="calculateMaximum(targetResult,currentInputs)">
-            Find the best score <span aria-hidden="true">→</span>
+            Beste Punktzahl finden <span aria-hidden="true">→</span>
         </button>
-        <button type="button" class="reset-button" (click)="clearEverything()">Start over</button>
+        <button type="button" class="reset-button" (click)="clearEverything()">Neu starten</button>
     </div>
     }
 
@@ -84,13 +84,13 @@
     <section #resultCard class="result-card" aria-labelledby="result-heading" aria-live="polite">
         <div class="result-heading">
             <div>
-                <p class="eyebrow">YOUR BEST PLAY</p>
-                <h2 id="result-heading">Highest result</h2>
+                <p class="eyebrow">DEIN BESTER ZUG</p>
+                <h2 id="result-heading">Höchster Wert</h2>
             </div>
             <div class="result-value">{{bruteForceResult.highestValue}}</div>
         </div>
         @if(bruteForceResult.wayStepByStep && bruteForceResult.wayStepByStep.length){
-        <div class="steps-heading">PLAY IT LIKE THIS</div>
+        <div class="steps-heading">SO SPIELST DU ES</div>
         <div class="steps-container">
             @for(stepParts of getColoredSteps(bruteForceResult.wayStepByStep); track $index){
             <div class="step">

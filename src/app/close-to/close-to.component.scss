@@ -81,6 +81,10 @@ h1 {
     margin-bottom: 18px;
 }
 
+.section-heading > div {
+    padding-left: 4px;
+}
+
 .step-number {
     display: grid;
     flex: 0 0 34px;
