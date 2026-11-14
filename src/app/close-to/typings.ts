@@ -12,7 +12,7 @@ type Operator = typeof operators[number];
  * Evaluate numbers and operators left-to-right (ignoring standard operator precedence)
  * e.g., [55, 4, 3, 1, 4] with ['+', '*', '*', '-'] = (((55+4)*3)*1)-4 = 173
  */
-function evaluateLeftToRight(numbers: number[], ops: string[]): number {
+export function evaluateLeftToRight(numbers: number[], ops: string[]): number {
     let result = numbers[0];
     for (let i = 0; i < ops.length; i++) {
         const op = ops[i];
@@ -40,7 +40,7 @@ function evaluateLeftToRight(numbers: number[], ops: string[]): number {
  * Build equation string for display (left-to-right evaluation)
  * e.g., (((55+4)*3)*1)-4
  */
-function buildEquationString(numbers: number[], ops: string[]): string {
+export function buildEquationString(numbers: number[], ops: string[]): string {
     let result = `${numbers[0]}`;
     for (let i = 0; i < ops.length; i++) {
         result = `(${result}${ops[i]}${numbers[i + 1]})`;
@@ -48,7 +48,7 @@ function buildEquationString(numbers: number[], ops: string[]): string {
     return result;
 }
 
-function buildEquation(inputDigitSeed: number[], operandSeed: string[]) {
+export function buildEquation(inputDigitSeed: number[], operandSeed: string[]) {
     let equation = '';
     let index = 0;
     for (const inputDigit of inputDigitSeed) {
@@ -60,7 +60,7 @@ function buildEquation(inputDigitSeed: number[], operandSeed: string[]) {
 }
 
 
-function permutations<T>(arr: T[]): T[][] {
+export function permutations<T>(arr: T[]): T[][] {
     if (arr.length === 0) {
         return [[]];
     }
@@ -77,7 +77,7 @@ function permutations<T>(arr: T[]): T[][] {
     return result;
 }
 
-function filterDuplicates(arr: number[][]): number[][] {
+export function filterDuplicates(arr: number[][]): number[][] {
     const seen = new Set<string>();
     return arr.filter((subArr) => {
         const key = subArr.join(',');
@@ -87,7 +87,7 @@ function filterDuplicates(arr: number[][]): number[][] {
     });
 }
 
-function generateCombinationsWithRepetition(
+export function generateCombinationsWithRepetition(
     items: string[],
     length: number,
     prefix: string[] = [],
@@ -110,7 +110,7 @@ function generateCombinationsWithRepetition(
     return result;
 }
 
-function splitIntoSteps(resultWithBraces: string): string[] {
+export function splitIntoSteps(resultWithBraces: string): string[] {
     if (!resultWithBraces) return [];
     
     // Extract numbers and operators from the equation string

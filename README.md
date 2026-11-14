@@ -14,6 +14,16 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
+## GitHub Pages
+
+The `master` branch is deployed to `https://pakoc100.github.io/dice18/` by the GitHub Actions workflow.
+
+To enable deployment:
+
+1. On GitHub, open **Settings → Pages** and set **Build and deployment → Source** to **GitHub Actions**.
+2. If your plan does not support Pages for private repositories, open **Settings → General → Danger Zone → Change repository visibility** and make this repository public.
+3. Push to `master` or run the **Deploy to GitHub Pages** workflow manually from the **Actions** tab.
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
