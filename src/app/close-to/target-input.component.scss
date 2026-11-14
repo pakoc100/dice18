@@ -54,7 +54,35 @@
 }
 
 .target-keypad {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(3, 64px);
+    justify-content: center;
+}
+
+.target-display {
+    display: flex;
+    min-height: 62px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding: 11px 14px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: #fbfcfe;
+}
+
+.target-display strong {
+    overflow-wrap: anywhere;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 500;
+    text-align: right;
+}
+
+.target-display.has-value strong {
+    color: var(--ink);
+    font-size: 24px;
+    font-weight: 800;
 }
 
 .die-button {
@@ -80,23 +108,13 @@
     transform: translateY(0);
 }
 
-.current-value {
-    display: flex;
-    min-height: 42px;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    margin-top: 16px;
-    padding: 9px 12px;
-    border-radius: 11px;
-    background: #f6f7f9;
+.target-keypad .die-button {
+    height: 64px;
+    border-radius: 50%;
 }
 
-.current-value strong {
-    overflow-wrap: anywhere;
-    color: var(--ink);
-    font-size: 14px;
-    text-align: right;
+.target-keypad .die-button:last-child {
+    grid-column: 2;
 }
 
 .value-label {
@@ -135,15 +153,5 @@
 @media (max-width: 620px) {
     .input-card {
         padding: 18px;
-    }
-}
-
-@media (max-width: 360px) {
-    .target-keypad {
-        gap: 6px;
-    }
-
-    .die-button {
-        height: 44px;
     }
 }

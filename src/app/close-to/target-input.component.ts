@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { digits, Digit } from './typings';
+import { Digit } from './typings';
 
 @Component({
   selector: 'app-target-input',
@@ -14,5 +14,5 @@ export class TargetInputComponent {
   @Output() removeLast = new EventEmitter<void>();
   @Output() clearAll = new EventEmitter<void>();
 
-  readonly digits = digits;
+  readonly keypadDigits: Digit[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 }
