@@ -1,4 +1,13 @@
 <section class="input-card" aria-labelledby="target-heading">
+    @if(canCalculate){
+    <div class="button-row calculate-row">
+        <button type="button" class="calculate-button" (click)="calculate.emit()">
+            Beste Punktzahl finden <span aria-hidden="true">→</span>
+        </button>
+        <button type="button" class="reset-button" (click)="reset.emit()">Neu starten</button>
+    </div>
+    }
+
     <div class="section-heading">
         <span class="step-number">02</span>
         <div>

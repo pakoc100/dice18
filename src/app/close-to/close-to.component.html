@@ -17,20 +17,14 @@
         </app-dice-input>
         <app-target-input
             [targetResult]="targetResult"
+            [canCalculate]="currentInputs.length > 0 && targetResult.length > 0"
             (addDigit)="addToTarget($event, targetResult)"
             (removeLast)="removeTarget()"
-            (clearAll)="removeWholeTarget()">
+            (clearAll)="removeWholeTarget()"
+            (calculate)="calculateMaximum(targetResult, currentInputs)"
+            (reset)="clearEverything()">
         </app-target-input>
     </div>
-
-    @if(currentInputs.length && targetResult.length){
-    <div class="button-row calculate-row">
-        <button type="button" class="calculate-button" (click)="calculateMaximum(targetResult,currentInputs)">
-            Beste Punktzahl finden <span aria-hidden="true">→</span>
-        </button>
-        <button type="button" class="reset-button" (click)="clearEverything()">Neu starten</button>
-    </div>
-    }
 
     @if(bruteForceResult){
     <section #resultCard class="result-card" aria-labelledby="result-heading" aria-live="polite">

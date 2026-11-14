@@ -10,9 +10,12 @@ import { Digit } from './typings';
 })
 export class TargetInputComponent {
   @Input() targetResult = '';
+  @Input() canCalculate = false;
   @Output() addDigit = new EventEmitter<Digit>();
   @Output() removeLast = new EventEmitter<void>();
   @Output() clearAll = new EventEmitter<void>();
+  @Output() calculate = new EventEmitter<void>();
+  @Output() reset = new EventEmitter<void>();
 
   readonly keypadDigits: Digit[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 }
