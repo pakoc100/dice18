@@ -112,7 +112,8 @@ h1 {
 }
 
 .dice-keypad {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(3, 64px);
+    justify-content: center;
 }
 
 .target-keypad {
@@ -130,6 +131,36 @@ h1 {
     font-size: 17px;
     font-weight: 800;
     transition: border-color .15s ease, background .15s ease, transform .15s ease;
+}
+
+.dice-keypad .die-button {
+    display: grid;
+    width: 64px;
+    height: 64px;
+    place-items: center;
+    padding: 0;
+    border-radius: 14px;
+    background: #fff;
+}
+
+.die-face {
+    display: grid;
+    width: 40px;
+    height: 40px;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    place-items: center;
+}
+
+.die-pip {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--ink);
+    opacity: 0;
+}
+
+.die-pip.visible {
+    opacity: 1;
 }
 
 .die-button:hover {

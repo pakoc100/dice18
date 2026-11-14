@@ -20,7 +20,14 @@
 
             <div class="keypad dice-keypad">
                 @for(die of dice; track die){
-                <button type="button" class="die-button" (click)="addInput(die,currentInputs)">{{die}}</button>
+                <button type="button" class="die-button" [attr.aria-label]="'Die showing ' + die"
+                    (click)="addInput(die,currentInputs)">
+                    <span class="die-face" aria-hidden="true">
+                        @for(position of pipPositions; track position){
+                        <span class="die-pip" [class.visible]="facePips[die].includes(position)"></span>
+                        }
+                    </span>
+                </button>
                 }
             </div>
 
