@@ -6,7 +6,6 @@ import { BruteForceResult, dice, Die, Digit, digits } from './typings';
   standalone: true,
   templateUrl: './close-to.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrls: ['./close-to.component.scss']
 })
 export class CloseToComponent {
   dice = dice;

@@ -1,89 +1,99 @@
-<div class="header">
-    Drunk dice calculator
-</div>
+<main class="calculator">
+    <header class="hero">
+        <div class="brand-mark" aria-hidden="true">18</div>
+        <div>
+            <p class="eyebrow">THE PARTY GAME SIDEKICK</p>
+            <h1>Drunk dice calculator</h1>
+            <p class="hero-copy">Pick your dice, set a target, and find the best way to get there.</p>
+        </div>
+    </header>
 
-<h4 style="text-align: center!important">Add inputs</h4>
+    <div class="input-grid">
+        <section class="input-card" aria-labelledby="dice-heading">
+            <div class="section-heading">
+                <span class="step-number">01</span>
+                <div>
+                    <h2 id="dice-heading">Your dice</h2>
+                    <p>Tap each die you rolled</p>
+                </div>
+            </div>
 
-<div class="numberOuterContainer">
-    <div class="numberInputContainer1">
-        @for(die of dice; track die){
-        <button class="dieClass" (click)="addInput(die,currentInputs)">{{die}}</button>
-        }
+            <div class="keypad dice-keypad">
+                @for(die of dice; track die){
+                <button type="button" class="die-button" (click)="addInput(die,currentInputs)">{{die}}</button>
+                }
+            </div>
+
+            @if(currentInputs.length){
+            <div class="current-value">
+                <span class="value-label">SELECTED</span>
+                <strong>{{presentCurrentInputs(currentInputs)}}</strong>
+            </div>
+            <div class="button-row compact-actions">
+                <button type="button" class="quiet-button" (click)="removeInput()">Undo last</button>
+                <button type="button" class="quiet-button" (click)="removeAllInput()">Clear dice</button>
+            </div>
+            }
+        </section>
+
+        <section class="input-card" aria-labelledby="target-heading">
+            <div class="section-heading">
+                <span class="step-number">02</span>
+                <div>
+                    <h2 id="target-heading">Your target</h2>
+                    <p>Enter the number to get close to</p>
+                </div>
+            </div>
+
+            <div class="keypad target-keypad">
+                @for(digit of digits;track digit){
+                <button type="button" class="die-button" (click)="addToTarget(digit,targetResult)">{{digit}}</button>
+                }
+            </div>
+
+            @if(targetResult.length){
+            <div class="current-value">
+                <span class="value-label">TARGET</span>
+                <strong>{{targetResult}}</strong>
+            </div>
+            <div class="button-row compact-actions">
+                <button type="button" class="quiet-button" (click)="removeTarget()">Undo last</button>
+                <button type="button" class="quiet-button" (click)="removeWholeTarget()">Clear target</button>
+            </div>
+            }
+        </section>
     </div>
-</div>
 
-@if(currentInputs.length){
-<div class="flexBox">
-    <h4>Current inputs: </h4>
-
-    <h4>{{presentCurrentInputs(currentInputs)}}</h4>
-</div>
-
-@if(currentInputs.length){
-<div class="flexBox">
-    <button class="textButton" (click)="removeInput()">Clear last input digit</button>
-    <button class="textButton" (click)="removeAllInput()">Clear input</button>
-</div>
-}
-
-}
-
-
-
-<h4 style="text-align: center!important">Add Target</h4>
-
-<div class="numberOuterContainer">
-    <div class="numberInputContainer2">
-        @for( digit of digits;track digit){
-        <button class="dieClass" (click)="addToTarget(digit,targetResult)">{{digit}}</button>
-        }
-    </div>
-</div>
-
-
-@if(targetResult.length){
-<div class="flexBox">
-    <h4>Current target:</h4>
-
-
-    <h4>{{targetResult}}</h4>
-</div>
-
-
-
-<div class="flexBox">
-    <button class="textButton" (click)="removeTarget()">Clear last target digit</button>
-
-    <button class="textButton" (click)="removeWholeTarget()">Clear target</button>
-</div>
-}
-
-@if(currentInputs.length && targetResult.length){
-<br>
-<div class="flexBox">
-    <button class="textButton" (click)="calculateMaximum(targetResult,currentInputs)">Calculate</button>
-    <button class="textButton" (click)="clearEverything()">Clear everything</button>
-</div>
-}
-
-
-
-
-
-@if(bruteForceResult){
-<div class="flexBox">
-    <h4>Highest result is: </h4>
-    <h4>{{bruteForceResult.highestValue}}</h4>
-</div>
-@if(bruteForceResult.wayStepByStep && bruteForceResult.wayStepByStep.length){
-<div class="stepsContainer">
-    @for(stepParts of getColoredSteps(bruteForceResult.wayStepByStep); track $index){
-    <div class="step">
-        @for(part of stepParts; track part.text){
-        <span [class]="part.color ? part.color : ''">{{part.text}}</span>
-        }
+    @if(currentInputs.length && targetResult.length){
+    <div class="button-row calculate-row">
+        <button type="button" class="calculate-button" (click)="calculateMaximum(targetResult,currentInputs)">
+            Find the best score <span aria-hidden="true">→</span>
+        </button>
+        <button type="button" class="reset-button" (click)="clearEverything()">Start over</button>
     </div>
     }
-</div>
-}
-}
+
+    @if(bruteForceResult){
+    <section class="result-card" aria-labelledby="result-heading" aria-live="polite">
+        <div class="result-heading">
+            <div>
+                <p class="eyebrow">YOUR BEST PLAY</p>
+                <h2 id="result-heading">Highest result</h2>
+            </div>
+            <div class="result-value">{{bruteForceResult.highestValue}}</div>
+        </div>
+        @if(bruteForceResult.wayStepByStep && bruteForceResult.wayStepByStep.length){
+        <div class="steps-heading">PLAY IT LIKE THIS</div>
+        <div class="steps-container">
+            @for(stepParts of getColoredSteps(bruteForceResult.wayStepByStep); track $index){
+            <div class="step">
+                @for(part of stepParts; track part.text){
+                <span [class]="part.color ? part.color : ''">{{part.text}}</span>
+                }
+            </div>
+            }
+        </div>
+        }
+    </section>
+    }
+</main>
