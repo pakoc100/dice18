@@ -16,7 +16,7 @@ app-close-to {
     place-items: center;
     border-radius: 18px;
     background: var(--accent);
-    color: #fff;
+    color: var(--surface);
     font-size: 21px;
     font-weight: 900;
     letter-spacing: -1px;
@@ -66,8 +66,8 @@ h1 {
     gap: 10px;
     border: 0;
     border-radius: 13px;
-    background: var(--ink);
-    color: #fff;
+    background: var(--accent);
+    color: var(--surface);
     cursor: pointer;
     font-size: 14px;
     font-weight: 800;
@@ -76,11 +76,11 @@ h1 {
 
 .calculate-button:hover {
     transform: translateY(-1px);
-    background: #263b5d;
+    background: var(--accent-dark);
 }
 
 .calculate-button span {
-    color: #ffb17f;
+    color: var(--surface);
     font-size: 20px;
 }
 
@@ -120,7 +120,7 @@ h1 {
     padding: 22px;
     border: 1px solid var(--line);
     border-radius: 18px;
-    background: #fff;
+    background: var(--surface);
     box-shadow: 0 8px 24px rgb(23 36 58 / 4%);
 }
 
@@ -132,8 +132,8 @@ h1 {
 
 .result-card {
     margin-top: 18px;
-    border-color: #f3d9c9;
-    background: linear-gradient(135deg, #fff 0%, #fffaf6 100%);
+    border-color: var(--accent-border);
+    background: var(--surface);
 }
 
 .result-heading {
@@ -170,7 +170,7 @@ h1 {
     place-items: center;
     border: 1px solid var(--line);
     border-radius: 7px;
-    background: #fff;
+    background: var(--surface);
 }
 
 .step-die-pip {
@@ -204,7 +204,7 @@ h1 {
     overflow-wrap: anywhere;
     border: 1px solid var(--line);
     border-radius: 9px;
-    background: #fff;
+    background: var(--surface);
     color: #627087;
     font-family: 'Courier New', monospace;
     font-size: 12px;

@@ -6,7 +6,7 @@
     padding: 22px;
     border: 1px solid var(--line);
     border-radius: 18px;
-    background: #fff;
+    background: var(--surface);
     box-shadow: 0 8px 24px rgb(23 36 58 / 4%);
 }
 
@@ -27,7 +27,7 @@
     height: 34px;
     place-items: center;
     border-radius: 11px;
-    background: #fff0e8;
+    background: var(--surface);
     color: var(--accent-dark);
     font-size: 11px;
     font-weight: 900;
@@ -100,8 +100,8 @@
 
 .die-button:hover {
     transform: translateY(-2px);
-    border-color: #ffb48e;
-    background: #fff5ef;
+    border-color: var(--accent-hover-border);
+    background: var(--surface);
 }
 
 .die-button:active {
